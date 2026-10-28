@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080910">
+<title>Archivo 001 — Caso: nosotros dos</title>
+<style>
+:root {
+  --bg: #080910;
+  --panel: #10121d;
+  --line: #292c40;
+  --text: #f5f3ff;
+  --muted: #a8abc2;
+  --violet: #b7a5ff;
+  --pink: #ff9acb;
+  --cyan: #9de9ef;
+  --blue: #3b82f6;
+  --blue-glow: rgba(59, 130, 246, 0.25);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: radial-gradient(ellipse at 50% -10%, #172554 0%, #0b0c16 45%, var(--bg) 80%);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: 
+    radial-gradient(1px 1px at 12% 18%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 73% 13%, #60a5fa 99%, transparent),
+    radial-gradient(2px 2px at 86% 57%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 23% 78%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 54% 42%, #93c5fd 99%, transparent),
+    radial-gradient(1px 1px at 91% 86%, #fff 99%, transparent);
+  background-size: 310px 260px;
+}
+
+.wrap {
+  width: min(760px, calc(100% - 32px));
+  margin: 0 auto;
+  position: relative;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.pill {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: #10111caa;
+  backdrop-filter: blur(8px);
+}
+
+.hero {
+  min-height: 72vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 52px 0 60px;
+}
+
+.kicker {
+  color: #60a5fa;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(42px, 9vw, 78px);
+  line-height: .98;
+  letter-spacing: -.06em;
+  margin: 22px 0 16px;
+  font-weight: 750;
+}
+
+h1 span {
+  background: linear-gradient(135deg, #60a5fa, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lead {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 auto 28px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  color: var(--text);
+  border: 1px solid #1e3a8a;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-radius: 13px;
+  padding: 14px 20px;
+  transition: all .2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  border-color: #60a5fa;
+  box-shadow: 0 6px 20px var(--blue-glow);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+button.primary {
+  background: linear-gradient(135deg, #3b82f6, #93c5fd);
+  color: #0b0f19;
+  border: 0;
+  font-weight: 750;
+}
+
+button.secondary {
+  background: #11131e;
+  border-color: var(--line);
+  color: #dedcf0;
+}
+
+.small {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 14px;
+}
+
+.section {
+  margin: 26px 0;
+  padding: clamp(22px, 5vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(145deg, #121421ed, #0d0f18ed);
+  box-shadow: 0 18px 70px #0003;
+  backdrop-filter: blur(12px);
+}
+
+.sectionhead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #60a5fa;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: clamp(25px, 5vw, 38px);
+  letter-spacing: -.04em;
+  line-height: 1.08;
+  margin: 15px 0;
+}
+
+p {
+  line-height: 1.75;
+  color: #d4d5e3;
+  margin-bottom: 12px;
+}
+
+.muted { color: var(--muted); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.case {
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 17px;
+  background: #0b0d16;
+  transition: border-color 0.3s ease;
+}
+
+.case:hover {
+  border-color: #2563eb;
+}
+
+.case .label {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+
+.case strong {
+  display: block;
+  font-size: 18px;
+  margin: 9px 0 5px;
+  color: var(--text);
+}
+
+.case p {
+  font-size: 13px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.quote-box {
+  border-left: 3px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  padding: 18px 20px;
+  border-radius: 0 14px 14px 0;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #eff6ff;
+  margin: 22px 0;
+  box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.05);
+}
+
+.blue-highlight {
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.reveal {
+  display: none;
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid #1e3a8a;
+  border-radius: 16px;
+  background: #0f172a;
+}
+
+.reveal.show {
+  display: block;
+  animation: rise .55s ease both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.choices {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.choice {
+  flex: 1;
+  min-width: 140px;
+}
+
+.bigfinal {
+  text-align: center;
+  padding: 40px 12px;
+}
+
+.bigfinal h2 {
+  font-size: clamp(34px, 7vw, 56px);
+}
+
+.bigfinal .heart {
+  font-size: 46px;
+  margin-bottom: 12px;
+  display: inline-block;
+  color: #60a5fa;
+  filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6));
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.hidden { display: none !important; }
+
+footer {
+  text-align: center;
+  color: #74788f;
+  font-size: 11px;
+  letter-spacing: .08em;
+  padding: 30px 0 44px;
+}
+
+@media (max-width: 520px) {
+  .grid { grid-template-columns: 1fr; }
+  .top { font-size: 9px; }
+  .hero { min-height: 67vh; }
+  .section { border-radius: 17px; }
+  .choices { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span>ARQUIVO DIGITAL · 001</span>
+    <span class="pill">ACESSO RESTRITO</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="kicker">Una investigación muy poco imparcial</div>
+      <h1>CASO:<br><span>nosotros dos.</span></h1>
+      <p class="lead">Hay algo raro en este expediente. Duas pessoas, dois idiomas, dois times que não deveriam concordar em nada… e mesmo assim, aqui estamos.</p>
+      <button class="primary" id="start">Abrir investigación ↗</button>
+      <div class="small">Aviso: este archivo contiene evidencias de flerte.</div>
+    </section>
+
+    <section class="section hidden" id="investigation">
+      <div class="sectionhead">01 / Datos del caso</div>
+      <h2>Los hechos son medio sospechosos.</h2>
+      <p>Vamos a revisar lo que sabemos hasta ahora. Por favor, intenta mantener la imparcialidad. Yo claramente no lo conseguí.</p>
+      
+      <div class="grid">
+        <div class="case">
+          <span class="label">Ubicación A</span>
+          <strong>Brasil 🇧🇷</strong>
+          <p>Un lado de la pantalla. Decisiones cotidianas e intentos de hablar portuñol.</p>
+        </div>
+        <div class="case">
+          <span class="label">Ubicación B</span>
+          <strong>Buenos Aires 🇦🇷</strong>
+          <p>El otro lado de la pantalla. La culpable de arruinar mi concentración todos los días.</p>
+        </div>
+        <div class="case">
+          <span class="label">Conexión</span>
+          <strong>Portuñol e ideas claras</strong>
+          <p>A veces nos entendemos a la perfección. A veces inventamos palabras. Pero siempre nos buscamos.</p>
+        </div>
+        <div class="case">
+          <span class="label">Detalle clave</span>
+          <strong>Cielos del mismo color 💙</strong>
+          <p>No importa la distancia, terminamos mirando hacia el mismo lugar.</p>
+        </div>
+      </div>
+
+      <div class="choices">
+        <button class="primary" id="evidence">Ver evidencia principal</button>
+      </div>
+
+      <div class="reveal" id="evidenceReveal">
+        <div class="sectionhead">Evidencia 01-B</div>
+        <h2>El problema nunca fue la distancia.</h2>
+        <p>Tampoco fue el mapa, ni las horas de viaje, ni los modismos que tuvimos que aprender.</p>
+        <p><strong>Fue que empecé a disfrutar hablar contigo mucho más de lo que sería prudente.</strong> Y bueno… ahora estamos acá. 🤦‍♂️</p>
+        <button class="primary" id="next" style="margin-top: 15px;">Continuar el caso →</button>
+      </div>
+    </section>
+
+    <section class="section hidden" id="test">
+      <div class="sectionhead">02 / Test de imparcialidad</div>
+      <h2>Tenemos que resolver una cuestión importante.</h2>
+      <p>Si tuviéramos que elegir una sola cosa para debatir hasta el fin de los tiempos, ¿cuál sería?</p>
+      
+      <div class="choices">
+        <button class="secondary choice" data-answer="time">Quién echa de menos a quién primero</button>
+        <button class="secondary choice" data-answer="language">Quién entiende peor los chistes del otro</button>
+        <button class="secondary choice" data-answer="both">Las dos. Obviamente.</button>
+      </div>
+
+      <div class="reveal" id="answerReveal">
+        <p id="answerText"></p>
+        <button class="primary" id="toFinal" style="margin-top: 15px;">Ya, basta de vueltas →</button>
+      </div>
+    </section>
+
+    <section class="section hidden" id="final">
+      <div class="sectionhead">03 / Conclusión del informe</div>
+      <div class="bigfinal">
+        <div class="heart">💙</div>
+        <div class="kicker">Informe final</div>
+        <h2>Ya, hablando en serio ahora.</h2>
+        <p>Me gusta muchísimo todo lo que construimos. Disfruto nuestras conversaciones, cómo encajan nuestras ideas y cómo logras pintar de <span class="blue-highlight">azul</span> mi día sin importar la distancia.</p>
+        
+        <div class="quote-box">
+          "No meio de tanta coisa improvável, eu nunca imaginei que o amor da minha vida seria alguém de outro país, mas aconteceu e eu não quero mais viver sem você."
+        </div>
+
+        <p>En medio de tantas probabilidades en contra, quiero hacer esto bien contigo — sin informes, sin expedientes y sin excusas para escapar de la pregunta.</p>
+        
+        <h2 style="color:#60a5fa; margin: 25px 0;">¿Querés ser mi novia?</h2>
+        
+        <p class="muted">Prometo hacer que cada día tenga el color <span class="blue-highlight">azul</span> que tanto te gusta. 💙</p>
+        
+        <div class="choices" style="justify-content:center; margin-top: 30px;">
+          <button class="primary" id="yes">Sí, obvio 💙</button>
+          <button class="secondary" id="tease">Necesito revisar el informe</button>
+        </div>
+
+        <div class="reveal" id="yesReveal">
+          <h2>CASO CERRADO. 🫡</h2>
+          <p>Bueno… ahora sí puedo decir que esta investigación fue un éxito absoluto.</p>
+          <p><strong>Te quiero muchísimo. 💙</strong></p>
+        </div>
+
+        <div class="reveal" id="teaseReveal">
+          <p>Petición de revisión registrada. Plazo estimado: un beso y una respuesta. No se aceptan excusas basadas en la distancia. 🤨</p>
+          <button class="primary" id="yesAgain" style="margin-top: 15px;">Bueno, respuesta final: sí 💙</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>FIN DEL ARCHIVO · LO DEMÁS DEPENDE DE NOSOTROS</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function reveal(el) {
+  el.classList.add('show');
+}
+
+function showSection(id) {
+  $(id).classList.remove('hidden');
+  $(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+$('start').addEventListener('click', () => showSection('investigation'));
+
+$('evidence').addEventListener('click', () => {
+  reveal($('evidenceReveal'));
+  $('evidence').textContent = 'Evidencia encontrada ✓';
+  $('evidence').disabled = true;
+});
+
+$('next').addEventListener('click', () => showSection('test'));
+
+document.querySelectorAll('[data-answer]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const answers = {
+      time: 'Respuesta registrada. El jurado determina que hay un empate técnico de saudades. 😌',
+      language: 'Respuesta registrada. Nadie gana porque los dos nos confundimos igual de bonito.',
+      both: 'Respuesta correcta. Finalmente una decisión en donde ambos lados coinciden. Eso merece ser documentado.'
+    };
+    $('answerText').textContent = answers[btn.dataset.answer];
+    reveal($('answerReveal'));
+    document.querySelectorAll('[data-answer]').forEach(b => b.disabled = true);
+  });
+});
+
+$('toFinal').addEventListener('click', () => showSection('final'));
+
+$('yes').addEventListener('click', () => {
+  reveal($('yesReveal'));
+  $('teaseReveal').classList.remove('show');
+});
+
+$('tease').addEventListener('click', () => {
+  reveal($('teaseReveal'));
+  $('yesReveal').classList.remove('show');
+});
+
+$('yesAgain').addEventListener('click', () => {
+  reveal($('yesReveal'));
+  $('teaseReveal').classList.remove('show');
+});
+</script>
+</body>
+</html>
